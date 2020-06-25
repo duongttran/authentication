@@ -3,7 +3,7 @@ const User = require("../models/user")
 exports.loginWithEmail = async(req, res, next) => {
     try{
        const {email, password} = req.body
-       if(!email || !paswword){
+       if(!email || !password){
            return res.status(400).json({
                 status: "fail",
                 error: "Email, Name, Password are require"
@@ -18,7 +18,11 @@ exports.loginWithEmail = async(req, res, next) => {
         })
        }
 
-       const token = await user.generateToken()
+      
+
+
+
+    const token = await user.generateToken()
 
        res.json({
            status: "success",
@@ -30,4 +34,14 @@ exports.loginWithEmail = async(req, res, next) => {
             message: err.message
         })
     }
+}
+
+exports.logout = async(req, res, next) => {
+    const token = req.headers.authorization.replace("Bearer ","");
+    // console.log(token)
+    console.log(req.user.tokens)
+    req.user.tokens = req.user.tokens.filter(item => item !== token);
+    console.log(req.user.tokens)
+    await req.user.save();
+     res.status(204).json({});
 }

@@ -7,7 +7,7 @@ exports.createUser = async (req, res, next) => {
         if (!email || !name || !password) {
             return res.status(400).json({
                 status: "fail",
-                error: "email, name and password are reuired"
+                error: "email, name and password are required"
             });
         }
 
@@ -34,6 +34,9 @@ exports.readUser = async (req, res, next) => {
     }
 }
 
+
+
 exports.getMyProfile = async (req, res) => {
     res.json({ status: "ok", data: req.user })
 }
+

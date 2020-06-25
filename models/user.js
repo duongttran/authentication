@@ -82,10 +82,11 @@ schema.statics.loginWithEmail = async function (email, password) {
 // user.save()
 schema.pre("save", async function (next) {
     // this = the instance of User model
-    console.log(this)
-    if (this.isModified("password")) {
+    // console.log(this)
+    if (!this.isModified("password"))  next()
+
         this.password = await bcrypt.hash(this.password, round);
-    };
+ 
     next();
 })
 

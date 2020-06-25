@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
-const User = require("../models/user"
-)
+const User = require("../models/user")
+
+
 exports.loginRequired = async (req, res, next) => {
     try {
         if (!req.headers.authorization || !req.headers.authorization.startsWith("Bearer ")) {
